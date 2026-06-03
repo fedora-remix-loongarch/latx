@@ -8,10 +8,14 @@ License: GPL2
 URL: https://github.com/lat-opensource/lat
 Source0: https://github.com/lat-opensource/lat/archive/refs/tags/%{version}.tar.gz
 
-BuildRequires: gcc make git ninja-build meson
+BuildRequires: gcc g++ make git ninja-build meson
+BuildRequires: openssl-devel
 BuildRequires: glib2-devel
 
 Obsoletes: qemu-user-static-x86 < 0
+
+# box64 only supports loongarch architectures
+ExclusiveArch:  loongarch64
 
 %description
 LoongArch Architecture Translator for x86.
@@ -24,13 +28,13 @@ LoongArch Architecture Translator for x86.
 mkdir -p build-x86_64
 pushd build-x86_64
 ../configure \
-        --prefix="%{_prefix}" \
-        --libdir="%{_libdir}" \
-        --datadir="%{_datadir}" \
-        --sysconfdir="%{_sysconfdir}" \
-        --localstatedir="%{_localstatedir}" \
-        --docdir="%{_docdir}" \
-        --libexecdir="%{_libexecdir}" \
+	--prefix="%{_prefix}" \
+	--libdir="%{_libdir}" \
+	--datadir="%{_datadir}" \
+	--sysconfdir="%{_sysconfdir}" \
+	--localstatedir="%{_localstatedir}" \
+	--docdir="%{_docdir}" \
+	--libexecdir="%{_libexecdir}" \
 	--target-list=x86_64-linux-user \
 	--enable-latx \
 	--optimize-O1 \
@@ -45,13 +49,13 @@ mkdir -p build-i386
 pushd build-i386
                 
 ../configure \
-        --prefix="%{_prefix}" \
-        --libdir="%{_libdir}" \
-        --datadir="%{_datadir}" \
-        --sysconfdir="%{_sysconfdir}" \
-        --localstatedir="%{_localstatedir}" \
-        --docdir="%{_docdir}" \
-        --libexecdir="%{_libexecdir}" \
+	--prefix="%{_prefix}" \
+	--libdir="%{_libdir}" \
+	--datadir="%{_datadir}" \
+	--sysconfdir="%{_sysconfdir}" \
+	--localstatedir="%{_localstatedir}" \
+	--docdir="%{_docdir}" \
+	--libexecdir="%{_libexecdir}" \
 	--target-list=i386-linux-user \
 	--enable-latx \
 	--optimize-O1 \
@@ -87,4 +91,5 @@ popd
 %{_sysconfdir}/binfmt.d/latx-i386.conf
 
 %changelog
-%autochangelog
+* Wed Jun  3 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 1.6.6-1
+- Initial latx spec.

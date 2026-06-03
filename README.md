@@ -1,0 +1,3 @@
+# latx
+
+The latx package
